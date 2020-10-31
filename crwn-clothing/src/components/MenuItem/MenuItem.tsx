@@ -1,17 +1,28 @@
 import { url } from "inspector";
 import React from "react";
+import { withRouter } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router'
 import './MenuItem.scss'
 
-interface MyProps {
+interface MyProps extends RouteComponentProps{
   title: string;
   imageUrl: string;
   size?: string;
+  linkUrl: string;
 }
 
-const MenuItem: React.FunctionComponent<MyProps> = ({ title, imageUrl, size }) => {
+const MenuItem: React.FunctionComponent<MyProps> = ({
+  title,
+  imageUrl,
+  size,
+  linkUrl,
+  history,
+  match
+}) => {
   return (
     <div
       className={`menu-item ${size}`}
+      onClick={() => history.push(`${match.url}${linkUrl}`)}
     >
       <div
         className="background-image"
@@ -27,4 +38,4 @@ const MenuItem: React.FunctionComponent<MyProps> = ({ title, imageUrl, size }) =
   );
 };
 
-export default MenuItem;
+export default withRouter(MenuItem);
